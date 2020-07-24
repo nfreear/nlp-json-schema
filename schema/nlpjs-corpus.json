@@ -14,7 +14,7 @@
 
     "locale": {
       "type": "string",
-      "description": "The locale of the corpus, for example: 'en-US'. (Use a restrictive pattern, for now?)",
+      "description": "Bug #1 -- The locale of the corpus, for example: 'en-US'.",
       "pattern": "^[a-z]{2}-[A-Z]{2}$"
     },
 
@@ -41,7 +41,7 @@
 
         "intent": {
           "type": "string",
-          "description": "The user's intent, typically using dot-notation, for example: 'greetings.hello'",
+          "description": "Bug #2 -- The user's intent, typically using dot-notation, for example: 'greetings.hello'",
           "pattern": "^[a-zA-Z][a-zA-Z\\.]+$"
         },
 
@@ -57,11 +57,14 @@
 
         "answers": {
           "type": "array",
-          "description": "A list of possible answers from the Bot (optional).",
+          "description": "Bug #3 -- A list of possible answers from the Bot (optional).",
           "minItems": 1,
           "uniqueItems": true,
           "items": {
-            "type": "string"
+            "anyOf": [
+              { "type": "string" },
+              { "$ref": "#/definitions/answerItem" }
+            ]
           }
         }
       }
