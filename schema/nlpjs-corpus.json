@@ -1,0 +1,88 @@
+{
+  "$id": "http://example.org/nlpjs-corpus.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+
+  "title": "NLP.js Corpus.",
+  "type": "object",
+  "required": [ "name", "locale", "data" ],
+
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "A (human-readable?) name for the corpus."
+    },
+
+    "locale": {
+      "type": "string",
+      "description": "The locale of the corpus, for example: 'en-US'. (Use a restrictive pattern, for now?)",
+      "pattern": "^[a-z]{2}-[A-Z]{2}$"
+    },
+
+    "data": {
+      "type": "array",
+      "description": "The list of corpus utterances, intents, etc.",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/corpusItem" }
+    }
+  },
+
+  "definitions": {
+
+    "corpusItem": {
+      "type": "object",
+      "required": [ "intent", "utterances" ],
+
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "A numeric ID for the item (optional).",
+          "minimum": 1
+        },
+
+        "intent": {
+          "type": "string",
+          "description": "The user's intent, typically using dot-notation, for example: 'greetings.hello'",
+          "pattern": "^[a-zA-Z][a-zA-Z\\.]+$"
+        },
+
+        "utterances": {
+          "type": "array",
+          "description": "A list of example utterances by the user.",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+
+        "answers": {
+          "type": "array",
+          "description": "A list of possible answers from the Bot (optional).",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "answerItem": {
+      "type": "object",
+      "required": [ "answer" ],
+
+      "properties": {
+        "answer": {
+          "type": "string",
+          "description": "A possible answer."
+        },
+
+        "opts": {
+          "type": "string",
+          "description": "Options relating to the answer. For example, a logic operation: `channel==='console'`"
+        }
+      }
+    }
+
+  }
+}

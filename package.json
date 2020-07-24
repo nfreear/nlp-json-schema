@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "@nfreear/nlp-json-schema",
+  "description": "JSON schemas for NLP.js corpora (and maybe Azure LUIS models, etc. ?)",
+  "repository": "https://github.com/nfreear/schema.git",
+  "scripts": {
+    "test": "ajv -s node_modules/ajv/lib/refs/json-schema-draft-07.json -d schema/*",
+    "X-test": "jsonlint -V http://json-schema.org/draft-07/schema# schema/*.json"
+  },
+  "devDependencies": {
+    "ajv": "^6.12.3",
+    "ajv-cli": "^3.2.1"
+  }
+}
